@@ -1,5 +1,6 @@
 import express, { json, urlencoded } from 'express';
 import cors from 'cors';
+import db from './config/config'
 
 const app = express();
 const port = parseInt(process.env.Port) || 3000;
