@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true
     },
     "extends": [
         "airbnb-base",
@@ -12,7 +13,7 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": ["prettier"],
+    "plugins": ["prettier", "imoprt"],
     "rules": {
       "prettier/prettier": "error",
       "spaced-comment":"off",
@@ -25,6 +26,12 @@
       "no-underscore-dangle":"off",
       "class-methods-use-this":"off",
       "prefer-destructuring":["error", { "object": true, "array": false}],
-      "no-unused-vars":["error", { "argsIgnorePattern": "req|res|next|val" }]
+      "no-unused-vars":["error", { "argsIgnorePattern": "req|res|next|val" }],
+      "import/no-unresolved":[2, {"commonjs": true, "amd": true}],
+      "import/named": 2,
+      "import/namespace": 2,
+      "import/default": 2,
+      "import/export": 2
+    
     }
 }
