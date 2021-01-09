@@ -10,7 +10,7 @@ class PencilController {
    * @params {object} res HTTP response object
    */
   topics(req, res) {
-    Topic.find({}, (err, topics) => {
+    Topic.find({}, { __v: 0 }, (err, topics) => {
       if(err) {
         return res.statusCode(400).send({ message: err });
       } else {
@@ -28,7 +28,7 @@ class PencilController {
    * @params {object} res HTTP response object
    */
   questions(req, res) {
-    Question.find({}, (err, questions) => {
+    Question.find({}, { __v:0 }, (err, questions) => {
       if(err) {
         return erorrHandler(res, 'INTERNAL_SERVER_ERROR', err.message);
       } else {
