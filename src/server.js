@@ -21,3 +21,5 @@ db.then(()=> {
   console.log(err.message);
   return;
 })
+
+export default app;
