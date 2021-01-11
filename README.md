@@ -2,6 +2,9 @@
 ## Introduction
 The goal of this project is to store and create an index over question objects in MongoDB, and write a NodeJS + Express based server that exposes a RESTful API to query the index and return questions that match the query. Each question will be annotated with one or more annotations. An annotation is defined as a topic that can come from a topic tree. An example topic tree is shown below.
 
+## Usage
+Copy this https://pbackend.herokuapp.com/api/v1/topics and access the application using Postman or clone this repository and run it on your machine.
+
 ## Installation and Setup
 - Download and install the following if you don't have it installed aready.
    - [Node.js](https://nodejs.org/en/)
@@ -11,18 +14,19 @@ The goal of this project is to store and create an index over question objects i
 - Clone this application using the command `git clone git@github.com:chibuezeayogu/pencil_backend.git`
 - Navigate to the application folder using `cd pencil_backend/`
 - Install Application Dependencies using `yarn install`
-- Seed database using `md-seed run`. In case you get an error while running the command, if you are using 
+- Seed database using ` NODE_ENV=development md-seed run`. In case you get an error while running the command, if you are using 
    - ZSH run this command `export PATH="./node_modules/.bin:$PATH" >> ~/.zshrc`
    - Bshrc run this command `export PATH="./node_modules/.bin:$PATH" >> ~/.bashrc`
 - Create `.env` file and copy content of `.env.sample` to it and provide the appropriate values specified.
 - Run the application using `yarn run dev-start`
 
 ## App Features
-- GET All Topics
-- POST Topic(s)
-- GET All Questions
-- POST Question(s)
-- Search for a Topic and return questions matching the topic.
+- GET All Topics `/api/v1/topics`
+- POST Topic(s) `/api/v1/topic`
+- GET All Questions `/api/v1/questions`
+- POST Question(s) `/api/v1/question`
+- Search for a Topic and return questions matching the topic. `/api/v1/search?q=enter_serach_term_here`
+- **NOTE** This can only be tested using Postman.
 
 ## Language
 - JavaScript
