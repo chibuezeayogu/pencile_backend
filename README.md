@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/f38d64b165f054ad6d06/maintainability)](https://codeclimate.com/github/chibuezeayogu/pencil_backend/maintainability) 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f38d64b165f054ad6d06/test_coverage)](https://codeclimate.com/github/chibuezeayogu/pencil_backend/test_coverage)
 # Pencile_backend
 ## Introduction
 The goal of this project is to store and create an index over question objects in MongoDB, and write a NodeJS + Express based server that exposes a RESTful API to query the index and return questions that match the query. Each question will be annotated with one or more annotations. An annotation is defined as a topic that can come from a topic tree. An example topic tree is shown below.
@@ -19,7 +21,9 @@ The goal of this project is to store and create an index over question objects i
 
 ## App Features
 - GET All Topics
+- POST Topic(s)
 - GET All Questions
+- POST Question(s)
 - Search for a Topic and return questions matching the topic.
 
 ## Language

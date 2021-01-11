@@ -171,13 +171,13 @@ describe('GET /api/v1/search', () => {
 
   it('should return a 200 status and found questions', (done)=> {
     request
-      .get('/api/v1/search?q=Quantum Mechanics')
+      .get('/api/v1/search?q=Modern Physics')
       .then((res) => {
         const { body } = res
         
         expect(res.status).to.equal(200)
         expect(body.success).to.equal(true)
-        expect(body.data.length).to.equal(2)
+        expect(body.data.length).to.equal(3)
         done();
       })
       .catch((err) => done(err));
