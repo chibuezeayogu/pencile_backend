@@ -19,7 +19,9 @@ The goal of this project is to store and create an index over question objects i
 
 ## App Features
 - GET All Topics
+- POST Topic(s)
 - GET All Questions
+- POST Question(s)
 - Search for a Topic and return questions matching the topic.
 
 ## Language
