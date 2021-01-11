@@ -2,9 +2,12 @@ import express, { json, urlencoded } from 'express';
 import cors from 'cors';
 import db from './config/config';
 import api from './routes/index';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const port = parseInt(process.env.Port) || 3000;
+const port = parseInt(process.env.PORT) || 3000;
 
 db.then(()=> {
   app.use(
