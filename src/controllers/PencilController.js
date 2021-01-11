@@ -12,12 +12,29 @@ class PencilController {
   topics(req, res) {
     Topic.find({}, { __v: 0 }, (err, topics) => {
       if(err) {
-        return res.statusCode(400).send({ message: err });
+        return erorrHandler(res, 'INTERNAL_SERVER_ERROR', err.message);
       } else {
-        if(topics === null) {
+        if(topics === null || topics.length === 0) {
           return erorrHandler(res, 'NOT_FOUND', "No Topics Found");
         }
-        return ok(res, { data: topics });
+        return ok(res, 'OK', { data: topics });
+      }
+    })
+  }
+
+  /**
+   * POST Topic(s) into Topic collection
+   * @params {object} req HTTP request object
+   * @params {object} res HTTP response object
+   */
+  topic(req, res) {
+    const { body } = req;
+
+    Topic.insertMany(body, (err, topics) => {
+      if(err) {
+        return erorrHandler(res, 'INTERNAL_SERVER_ERROR', err.message);
+      } else {
+        return ok(res, 'CREATED', { data: topics });
       }
     })
   }
@@ -35,7 +52,23 @@ class PencilController {
         if(questions === null || questions.length === 0) {
           return erorrHandler(res, 'NOT_FOUND', "No Questions Found");
         }
-        return ok(res, { data: questions });
+        return ok(res, 'OK', { data: questions });
+      }
+    })
+  }
+
+  /**
+   * POST Question(s) into Question collection
+   * @params {object} req HTTP request object
+   * @params {object} res HTTP response object
+   */
+  question(req, res) {
+    const { body } = req;
+    Question.insertMany(body, (err, questions) => {
+      if(err) {
+        return erorrHandler(res, 'INTERNAL_SERVER_ERROR', err.message);
+      } else {
+        return ok(res, 'CREATED', { data: questions });
       }
     })
   }
@@ -45,12 +78,12 @@ class PencilController {
    * @params {object} req HTTP request object
    * @params {object} res HTTP response object
    */
-  async search(req, res, next) {
+  async search(req, res) {
     const { q } = req.query;
     try {
       const topic = await Topic.findOne({ _id: q.toLowerCase() });
       if(topic === null) {
-        return erorrHandler(res, 'NOT_FOUND', "No Topics Found");
+        return erorrHandler(res, 'NOT_FOUND', "No Topic Found");
       }
 
       let stack = topic.children;
@@ -71,7 +104,7 @@ class PencilController {
       if(questions === null || questions.length === 0) {
         return erorrHandler(res, 'NOT_FOUND', "No Questions Found");
       }
-      return ok(res, { data: questions.map(q => `Question ${q._id}`) });
+      return ok(res, 'OK', { data: questions.map(q => `Question ${q._id}`) });
     } catch (e) {
       return erorrHandler(res, 'INTERNAL_SERVER_ERROR', e.message);
     }
