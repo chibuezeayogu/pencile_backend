@@ -10,20 +10,21 @@ import questions from '../mockData/questions';
 const mockgoose = new Mockgoose(mongoose);
 const request = supertest(app);
 
+console.log({ log: process.env });
+
 before(done => {
   mockgoose.prepareStorage()
     .then(() => {
       db
-        .then(() => done())
+        .then((con) => {
+          console.log({ con });
+          done()})
         .catch((err) => done(err));
     })
 })
 
 after(done => {
-  mongoose
-    .connection
-      .db
-        .dropDatabase()
+  mongoose.connection.dropDatabase()
           .then(() => done())
           .catch((err) => done(err));
 })
