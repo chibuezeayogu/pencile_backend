@@ -5,11 +5,11 @@ dotenv.config();
 let dbURL;
 
 if(process.env.NODE_ENV === 'production') {
-  dbURL=process.env.PRD_DB_URL.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
+  dbURL=process.env.PRD_DB_URL
 } else if(process.env.NODE_ENV === 'test') {
-  dbURL=`mongodb://${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/test`;
+  dbURL=process.env.TEST_DB_URL
 } else  {
-  dbURL=`mongodb://${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`;
+  dbURL=process.env.DEV_DB_URL
 }
  
 

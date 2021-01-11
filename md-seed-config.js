@@ -1,15 +1,8 @@
 import mongoose from 'mongoose';
 import Topics from './src/seeders/topics.seeder';
 import Questions from './src/seeders/questions.seeder';
-import dotenv from 'dotenv';
+import db from './src/config/config'
 
-dotenv.config();
-let mongoURL;
-if(process.env.NODE_ENV === 'production') {
-  mongoURL=process.env.PRD_DB_URL.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
-} else {
-  mongoURL=`mongodb://${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`;
-}
 
 /**
  * Seeders List
@@ -25,7 +18,7 @@ export const seedersList = {
  * @return {Promise}
  */
 export const connect = async () =>
-  await mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
+  await db
 /**
  * Drop/Clear the database implementation
  * @return {Promise}
