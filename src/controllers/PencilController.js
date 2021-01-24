@@ -1,9 +1,8 @@
-import { ok, erorrHandler  } from '../helpers/response';
-import Topic from '../models/topic';
-import Question from '../models/question';
+import { ok, erorrHandler } from "../helpers/response";
+import Topic from "../models/topic";
+import Question from "../models/question";
 
 class PencilController {
-
   /**
    * Get All Topics in the collection
    * @params {object} req HTTP request object
@@ -11,15 +10,14 @@ class PencilController {
    */
   topics(req, res) {
     Topic.find({}, { __v: 0 }, (err, topics) => {
-      if(err) {
-        return erorrHandler(res, 'INTERNAL_SERVER_ERROR', err.message);
-      } else {
-        if(topics === null || topics.length === 0) {
-          return erorrHandler(res, 'NOT_FOUND', "No Topics Found");
-        }
-        return ok(res, 'OK', { data: topics });
+      if (err) {
+        return erorrHandler(res, "INTERNAL_SERVER_ERROR", err.message);
       }
-    })
+      if (topics === null || topics.length === 0) {
+        return erorrHandler(res, "NOT_FOUND", "No Topics Found");
+      }
+      return ok(res, "OK", { data: topics });
+    });
   }
 
   /**
@@ -31,12 +29,11 @@ class PencilController {
     const { body } = req;
 
     Topic.insertMany(body, (err, topics) => {
-      if(err) {
-        return erorrHandler(res, 'INTERNAL_SERVER_ERROR', err.message);
-      } else {
-        return ok(res, 'CREATED', { data: topics });
+      if (err) {
+        return erorrHandler(res, "INTERNAL_SERVER_ERROR", err.message);
       }
-    })
+      return ok(res, "CREATED", { data: topics });
+    });
   }
 
   /**
@@ -45,16 +42,15 @@ class PencilController {
    * @params {object} res HTTP response object
    */
   questions(req, res) {
-    Question.find({}, { __v:0 }, (err, questions) => {
-      if(err) {
-        return erorrHandler(res, 'INTERNAL_SERVER_ERROR', err.message);
-      } else {
-        if(questions === null || questions.length === 0) {
-          return erorrHandler(res, 'NOT_FOUND', "No Questions Found");
-        }
-        return ok(res, 'OK', { data: questions });
+    Question.find({}, { __v: 0 }, (err, questions) => {
+      if (err) {
+        return erorrHandler(res, "INTERNAL_SERVER_ERROR", err.message);
       }
-    })
+      if (questions === null || questions.length === 0) {
+        return erorrHandler(res, "NOT_FOUND", "No Questions Found");
+      }
+      return ok(res, "OK", { data: questions });
+    });
   }
 
   /**
@@ -65,12 +61,11 @@ class PencilController {
   question(req, res) {
     const { body } = req;
     Question.insertMany(body, (err, questions) => {
-      if(err) {
-        return erorrHandler(res, 'INTERNAL_SERVER_ERROR', err.message);
-      } else {
-        return ok(res, 'CREATED', { data: questions });
+      if (err) {
+        return erorrHandler(res, "INTERNAL_SERVER_ERROR", err.message);
       }
-    })
+      return ok(res, "CREATED", { data: questions });
+    });
   }
 
   /**
@@ -82,31 +77,31 @@ class PencilController {
     const { q } = req.query;
     try {
       const topic = await Topic.findOne({ _id: q.toLowerCase() });
-      if(topic === null) {
-        return erorrHandler(res, 'NOT_FOUND', "No Topic Found");
+      if (topic === null) {
+        return erorrHandler(res, "NOT_FOUND", "No Topic Found");
       }
 
-      let stack = topic.children;
-      let descendants = [];
+      const stack = topic.children;
+      const descendants = [];
 
-      while(stack.length > 0) {
-        let currentNode = stack.pop();
-        let children = await Topic.findOne({ _id: currentNode });
+      while (stack.length > 0) {
+        const currentNode = stack.pop();
+        const children = await Topic.findOne({ _id: currentNode });
 
-        if(children === null || children.children.length === 0){
+        if (children === null || children.children.length === 0) {
           descendants.push(currentNode);
         } else {
-          children.children.forEach(t => stack.push(t));
+          children.children.forEach((t) => stack.push(t));
         }
       }
 
-      const questions = await Question.find({ annotations: { $in: descendants }}, { _id: 1});
-      if(questions === null || questions.length === 0) {
-        return erorrHandler(res, 'NOT_FOUND', "No Questions Found");
+      const questions = await Question.find({ annotations: { $in: descendants } }, { _id: 1 });
+      if (questions === null || questions.length === 0) {
+        return erorrHandler(res, "NOT_FOUND", "No Questions Found");
       }
-      return ok(res, 'OK', { data: questions.map(q => `Question ${q._id}`) });
+      return ok(res, "OK", { data: questions.map((question) => `Question ${question._id}`) });
     } catch (e) {
-      return erorrHandler(res, 'INTERNAL_SERVER_ERROR', e.message);
+      return erorrHandler(res, "INTERNAL_SERVER_ERROR", e.message);
     }
   }
 }
