@@ -13,7 +13,7 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": ["prettier", "imoprt"],
+    "plugins": ["prettier", "import"],
     "rules": {
       "prettier/prettier": "error",
       "spaced-comment":"off",
@@ -31,7 +31,9 @@
       "import/named": 2,
       "import/namespace": 2,
       "import/default": 2,
-      "import/export": 2
-    
+      "import/export": 2,
+      "node/no-unsupported-features/es-syntax": "off",
+      "no-await-in-loop": "off",
+      "eslint-disable-next-line": "off"
     }
 }

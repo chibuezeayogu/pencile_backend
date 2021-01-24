@@ -1,21 +1,22 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
-const Topic = model('Topic', new Schema (
-  {
-    _id: { 
+const Topic = model(
+  "Topic",
+  new Schema({
+    _id: {
       type: String,
       lowercase: true,
-      require: [true, 'Topic is required']
+      require: [true, "Topic is required"],
     },
     children: [
       {
         type: String,
         index: true,
         lowercase: true,
-        default: []
-      }
-    ]
-  }
-))
+        default: [],
+      },
+    ],
+  })
+);
 
 export default Topic;
