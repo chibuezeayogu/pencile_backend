@@ -25,7 +25,7 @@ Copy this https://pbackend.herokuapp.com/api/v1/topics and access the applicatio
 - POST Topic(s) `/api/v1/topic`
 - GET All Questions `/api/v1/questions`
 - POST Question(s) `/api/v1/question`
-- Search for a Topic and return questions matching the topic. `/api/v1/search?q=enter_serach_term_here`
+- Search for a Topic and return questions matching the topic. `/api/v1/search?q=enter_search_term_here`
 - **NOTE** This can only be tested using Postman.
 
 ## Language
